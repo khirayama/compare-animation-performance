@@ -8,15 +8,12 @@ var Balls = React.createClass({
   },
   render: function() {
     var dom = [];
-    var len = this.state.balls.length;
     var ball;
-    for(var i = 0; i < len; i++) {
+    for(var i = 0; i < Main.numOfBall; i++) {
       ball = this.state.balls[i];
       dom.push(<circle cx={ball.x} cy={ball.y} r={ball.r} fill={ball.c}></circle>);
     }
-    return (
-      <svg id="svg">{dom}</svg>
-    );
+    return <svg id="svg">{dom}</svg>;
   }
 });
 
@@ -30,7 +27,6 @@ window.onload = function() {
     return Math.abs(Math.random() * num) + a;
   };
 
-  // color
   var red = '#c0392b';
   var blue = '#2980b9';
   var yellow = '#f1c40f';
@@ -40,7 +36,6 @@ window.onload = function() {
   var gray = '#7f8c8d';
   var colorBox = [red, blue, yellow, orange, green, purple, gray];
 
-  // 初期化する
   Main.setup = function() {
     Main.objs = [];
     var color;
@@ -50,6 +45,7 @@ window.onload = function() {
     }
 
     Main.renderer = React.render(<Balls />, document.body);
+
     setInterval(function() {
       Main.update();
       Main.renderer.forceUpdate();
@@ -70,7 +66,6 @@ window.onload = function() {
     this.y = y || this.y;
     this.vx = vx || this.vx;
     this.vy = vy || this.vy;
-    this.init();
   };
   Main.Ball.prototype = {
     r: 20,
@@ -79,9 +74,6 @@ window.onload = function() {
     y: Main.svgH / 2,
     vx: 1,
     vy: 1,
-    init: function() {
-      var that = this;
-    },
     update: function() {
       var that = this;
       that.x += that.vx;
