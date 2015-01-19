@@ -6,23 +6,14 @@ window.onload = function() {
   Main.svgW = window.innerWidth;
   Main.svgH = window.innerHeight;
 
-  Main.numOfBall = 2000;
   Main.random = function(num, a) {
     return Math.abs(Math.random() * num) + a;
     // return Math.round(Math.random() * num) + a;
   };
 
-  // color
-  var red = '#c0392b';
-  var blue = '#2980b9';
-  var yellow = '#f1c40f';
-  var orange = '#d35400';
-  var green = '#27ae60';
-  var purple = '#8e44ad';
-  var gray = '#7f8c8d';
+  var red = '#c0392b', blue = '#2980b9', yellow = '#f1c40f', orange = '#d35400', green = '#27ae60', purple = '#8e44ad', gray = '#7f8c8d';
   var colorBox = [red, blue, yellow, orange, green, purple, gray];
 
-  // 初期化する
   Main.setup = function() {
     Main.objs = [];
     var color;
@@ -34,7 +25,7 @@ window.onload = function() {
     setInterval(function() {
       Main.update();
       Main.draw();
-    }, 1000 / 60);
+    }, 1000 / Main.fps);
   };
   Main.update = function() {
     var i = 0;
@@ -49,7 +40,6 @@ window.onload = function() {
     }
   };
 
-  // class: Ball
   Main.Ball = function(x, y, vx, vy, r, c) {
     this.r = r || this.r;
     this.c = c || this.c;
