@@ -1,18 +1,19 @@
 var Main = Main || {};
 
 var Balls = React.createClass({
+  getInitialState: function() {
+    return {
+      balls: []
+    }
+  },
   render: function() {
-    return <svg id="svg">
-      {this.props.balls.map(function(ball) {
-         return <BallItem key={ball.id} data={ball}/>;
-      })}
-    </svg>;
-  }
-});
-var BallItem = React.createClass({
-  render: function() {
-    var ball = this.props.data;
-    return <circle key={ball.id} cx={ball.x} cy={ball.y} r={ball.r} fill={ball.c}></circle>;
+    return (
+      <svg id="svg">
+        {this.props.balls.map(function(ball) {
+          return <circle key={ball.uid} cx={ball.x} cy={ball.y} r={ball.r} fill={ball.c}></circle>;
+        })}
+      </svg>
+    );
   }
 });
 
@@ -33,14 +34,13 @@ window.onload = function() {
     var color;
     for(var i = 0; i < Main.numOfBall; i++) {
       color = colorBox[Math.round(Main.random(colorBox.length, 0))];
-      Main.objs.push(new Main.Ball(Main.svgW / 2, Main.svgH / 2, Main.random(10, -5), Main.random(10, -5), Main.random(10, 1), color));
+      Main.objs.push(new Main.Ball(i, Main.svgW / 2, Main.svgH / 2, Main.random(10, -5), Main.random(10, -5), Main.random(10, 1), color));
     }
 
-    Main.renderer = React.render(<Balls balls={Main.objs}/>, document.body);
+    Main.renderer = React.render(<Balls balls={Main.objs} />, document.body);
 
     setInterval(function() {
       Main.update();
-      Main.renderer.forceUpdate();
     }, 1000 / Main.fps);
   };
 
@@ -49,9 +49,11 @@ window.onload = function() {
     for (i = 0; i < Main.objs.length; i++) {
       Main.objs[i].update();
     }
+    Main.renderer.setState(Main.objs);
   };
 
-  Main.Ball = function(x, y, vx, vy, r, c) {
+  Main.Ball = function(uid, x, y, vx, vy, r, c) {
+    this.uid = uid || this.uid;
     this.r = r || this.r;
     this.c = c || this.c;
     this.x = x || this.x;
@@ -60,6 +62,7 @@ window.onload = function() {
     this.vy = vy || this.vy;
   };
   Main.Ball.prototype = {
+    uid: 0,
     r: 20,
     c: red,
     x: Main.svgW / 2,

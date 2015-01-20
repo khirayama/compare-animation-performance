@@ -25,6 +25,7 @@
     "gulp-sass": "^1.2.4",
     "gulp-watch": "^3.0.0",
     "gulp-webpack": "^1.1.2",
+    "image-min": "^0.3.2",
     "jsx-loader": "^0.12.2",
     "less": "^2.2.0",
     "object-assign": "^2.0.0",
