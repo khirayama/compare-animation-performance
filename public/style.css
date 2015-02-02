@@ -21,7 +21,7 @@ html, body, svg {
 .svg:after,
 .canvas:after {
   position: absolute;
-  top: 132px;
+  top: 128px;
   right: 0;
   display: block;
   width: 187px;
