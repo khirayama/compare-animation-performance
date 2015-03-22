@@ -50,33 +50,22 @@ window.onload = function() {
   Main.svgW = window.innerWidth;
   Main.svgH = window.innerHeight;
 
-  var red = '#c0392b', blue = '#2980b9', yellow = '#f1c40f', orange = '#d35400', green = '#27ae60', purple = '#8e44ad', gray = '#7f8c8d';
-  var colorBox = [red, blue, yellow, orange, green, purple, gray];
-
   Main.setup = function() {
     Main.objs = [];
     var color;
     for (var i = 0; i < Main.numOfParticles; i++) {
-      color = colorBox[Math.round(Utils.random(colorBox.length, 0))];
+      color = Utils.colors[Math.round(Utils.random(Utils.colors.length - 1, 0))];
       Main.objs.push(new Particle(Main.svgW / 2, Main.svgH / 2, Utils.random(10, -5), Utils.random(10, -5), Utils.random(10, 1), color));
     }
-
-    setInterval(function() {
-      Main.update();
-      Main.draw();
-    }, 1000 / Main.fps);
+    Main.update();
   };
   Main.update = function() {
     var i = 0;
     for (i = 0; i < Main.objs.length; i++) {
       Main.objs[i].update();
-    }
-  };
-  Main.draw = function() {
-    var i = 0;
-    for (i = 0; i < Main.objs.length; i++) {
       Main.objs[i].draw();
     }
+    requestAnimationFrame(Main.update);
   };
   Main.setup();
 }
